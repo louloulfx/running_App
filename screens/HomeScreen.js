@@ -1,4 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
+import MapView from 'react-native-maps';
 import React from 'react';
 import {
   Image,
@@ -8,6 +9,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions 
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
@@ -15,10 +17,7 @@ import { MonoText } from '../components/StyledText';
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Button
-        title="Commencer la course"
-      />
-
+      <MapView style={styles.mapStyle} />
     </View>
   );
 }
@@ -31,6 +30,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  mapStyle: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
   tabBarInfoContainer: {
     position: 'absolute',
