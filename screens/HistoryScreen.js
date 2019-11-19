@@ -6,11 +6,6 @@ export default function HistoryScreen() {
   return (
     <ScrollView style={styles.container}>
       <HistoryComponent />
-      <HistoryComponent />
-      <HistoryComponent />
-      <HistoryComponent />
-      <HistoryComponent />
-      <HistoryComponent />
     </ScrollView>
   );
 }

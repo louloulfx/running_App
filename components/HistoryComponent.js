@@ -1,8 +1,39 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
+import dbh from '../db';
+
+// getbyid
+// const courses = dbh.collection('courses').doc('KPr3c7ZydkfvWiQW2unk')
+// courses.get().then(function(doc) {
+//     if (doc.exists) {
+//         console.log("Document data:", doc.data());
+//     } else {
+//         // doc.data() will be undefined in this case
+//         console.log("No such document!");
+//     }
+// }).catch(function(error) {
+//     console.log("Error getting document:", error);
+// });
+
+const courses = dbh.collection('courses');
+
+
 
 class HistoryComponent extends React.Component {
     render() {
+        var list = [];
+        courses.get()
+            .then(snapshot => {
+                snapshot.docs.map(doc => {
+                    console.log(snapshot.docs.length)
+                    for (let i = 0; i < snapshot.docs.length; i++) {}
+                    console.log(doc.data().id_user);
+                    return doc.data();
+                });
+            })
+            .catch(err => {
+                console.log('Error getting documents', err);
+            });
         return (
             <View style={styles.main_container}>
                 <View style={styles.container1}>
@@ -13,14 +44,14 @@ class HistoryComponent extends React.Component {
                     <View
                         style={styles.hr}
                     />
-                    <View style={{ flex: 1, alignItems: 'center',  flexDirection: 'row' }}>
+                    <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}>
                         <Text style={styles.time} >00:36:25 • 8km</Text>
                     </View>
                 </View>
                 <View style={{
                     flex: 4
                 }}>
-                    <Image source={require('../assets/images/maptest.png')} style={{width: 150, height:90, borderRadius: 10}}></Image>
+                    <Image source={require('../assets/images/maptest.png')} style={{ width: 150, height: 90, borderRadius: 10 }}></Image>
                 </View>
             </View>
         )
