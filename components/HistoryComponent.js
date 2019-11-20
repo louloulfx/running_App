@@ -20,39 +20,51 @@ const courses = dbh.collection('courses');
 
 
 class HistoryComponent extends React.Component {
-    render() {
-        var list = [];
+    state = { data: [] }
+    componentDidMount() {
+        let courseList = [];
         courses.get()
             .then(snapshot => {
                 snapshot.docs.map(doc => {
-                    console.log(snapshot.docs.length)
-                    for (let i = 0; i < snapshot.docs.length; i++) {}
-                    console.log(doc.data().id_user);
-                    return doc.data();
+                    courseList.push(doc.data());
+                    let date = new Date(doc.data().Date.seconds * 1000);
+                    let dayDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+                    console.log(dayDate);
                 });
+                this.setState({ data: courseList });
+                console.log(this.state)
             })
             .catch(err => {
                 console.log('Error getting documents', err);
             });
+    }
+    render() {
+
         return (
-            <View style={styles.main_container}>
-                <View style={styles.container1}>
-                    <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}>
-                        <Text style={styles.date} >05/10/19</Text>
-                        <Text style={styles.hour}>15:33</Text>
+            <View>
+                {this.state.data.map((data, index) => {
+                    return <View key={index} style={styles.main_container}>
+                        <View style={styles.container1}>
+
+                            <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}>
+                                <Text style={styles.date} >{data.Date.seconds}</Text>
+                                <Text style={styles.hour}>15:33</Text>
+                            </View>
+                            <View
+                                style={styles.hr}
+                            />
+                            <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}>
+                                <Text style={styles.time} >{data.DateFin.seconds - data.Date.seconds} secondes • {data.distance} km</Text>
+                            </View>
+                        </View>
+                        <View style={{
+                            flex: 4
+                        }}>
+                            <Image source={require('../assets/images/maptest.png')} style={{ width: 150, height: 90, borderRadius: 10 }}></Image>
+                        </View>
                     </View>
-                    <View
-                        style={styles.hr}
-                    />
-                    <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}>
-                        <Text style={styles.time} >00:36:25 • 8km</Text>
-                    </View>
-                </View>
-                <View style={{
-                    flex: 4
-                }}>
-                    <Image source={require('../assets/images/maptest.png')} style={{ width: 150, height: 90, borderRadius: 10 }}></Image>
-                </View>
+                })}
+
             </View>
         )
     }
