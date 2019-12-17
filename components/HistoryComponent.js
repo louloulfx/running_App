@@ -67,7 +67,7 @@ class HistoryComponent extends React.Component {
                         <View style={{
                             flex: 4
                         }}>
-                            <Image source={require('../assets/images/maptest.png')} style={{ width: 150, height: 90, borderRadius: 10 }}></Image>
+                            <Image source={require('../assets/images/maptest.png')} style={styles.img}></Image>
                         </View>
                     </View>
                 })}
@@ -78,36 +78,54 @@ class HistoryComponent extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    img: {
+        width: 130, 
+        height: 80, 
+        borderColor: '#262626', 
+        borderWidth: 1, 
+        borderTopRightRadius: 30,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 10,
+        borderTopLeftRadius: 10,
+        borderRadius: 10
+    },
     main_container: {
-        backgroundColor: '#0072BC',
+        backgroundColor: '#FFFFFF',
         alignItems: 'center',
         flexDirection: 'row',
-        borderRadius: 10,
+        borderTopEndRadius: 30,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 10,
+        borderTopLeftRadius: 10,
         height: 100,
-        marginBottom: 5
+        borderWidth: 1,
+        borderColor: '#262626',
+        marginBottom: 15,
+        marginRight: 15,
+        marginLeft: 15
     },
     container1: {
         flex: 5,
         alignItems: 'center',
     },
     hr: {
-        borderColor: '#fff',
+        borderColor: '#000',
         borderWidth: 1,
         height: 1,
         width: '80%',
     },
     date: {
-        color: '#fff',
+        color: '#000',
         fontSize: 20,
         marginRight: 7
     },
     hour: {
-        color: '#fff',
+        color: '#000',
         fontSize: 15,
         paddingTop: 5
     },
     time: {
-        color: '#fff',
+        color: '#000',
         fontSize: 15
     }
 
