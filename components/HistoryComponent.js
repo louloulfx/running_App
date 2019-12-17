@@ -26,13 +26,20 @@ class HistoryComponent extends React.Component {
         courses.get()
             .then(snapshot => {
                 snapshot.docs.map(doc => {
+                    let date = new Date(doc.data().start_date.seconds * 1000);
+                    let difference = (doc.data().end_date.seconds - doc.data().start_date.seconds) * 1000;
+                    let time = new Date(difference);
+                    let oneHour = new Date(0);
+                    let runTime =  ("0" + (time.getHours() - oneHour.getHours())).slice(-2) + ':' + ("0" + time.getMinutes()).slice(-2) + ':' + ("0" + time.getSeconds()).slice(-2);
+                    let dayDate = ("0" + date.getDate()).slice(-2) + '/' + ("0" + (date.getMonth() + 1)).slice(-2) + '/' + date.getFullYear();
+                    let hour = ("0" + date.getHours()).slice(-2) + ':' + ("0" + date.getMinutes()).slice(-2);
+                    doc.data().start_date.runTime = runTime;
+                    doc.data().start_date.date = dayDate;
+                    doc.data().start_date.hour = hour;
                     courseList.push(doc.data());
-                    let date = new Date(doc.data().Date.seconds * 1000);
-                    let dayDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
-                    console.log(dayDate);
                 });
                 this.setState({ data: courseList });
-                console.log(this.state)
+                console.log(this.state.data[0]);
             })
             .catch(err => {
                 console.log('Error getting documents', err);
@@ -47,14 +54,14 @@ class HistoryComponent extends React.Component {
                         <View style={styles.container1}>
 
                             <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}>
-                                <Text style={styles.date} >{data.Date.seconds}</Text>
-                                <Text style={styles.hour}>15:33</Text>
+                                <Text style={styles.date} >{data.start_date.date}</Text>
+                                <Text style={styles.hour}>{data.start_date.hour}</Text>
                             </View>
                             <View
                                 style={styles.hr}
                             />
                             <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}>
-                                <Text style={styles.time} >{data.DateFin.seconds - data.Date.seconds} secondes • {data.distance} km</Text>
+                                <Text style={styles.time} >{data.start_date.runTime} • {data.distance} km</Text>
                             </View>
                         </View>
                         <View style={{
