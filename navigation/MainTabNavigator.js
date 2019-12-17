@@ -1,78 +1,76 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import React from "react";
+import { Platform } from "react-native";
+import {
+  createStackNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
 
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import HistoryScreen from '../screens/HistoryScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import HomeScreen from "../screens/HomeScreen";
+import HistoryScreen from "../screens/HistoryScreen";
+import SettingsScreen from "../screens/SettingsScreen";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faRunning } from "@fortawesome/free-solid-svg-icons";
 
 const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {},
+  web: { headerMode: "screen" },
+  default: {}
 });
 
 const HomeStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Home: HomeScreen
   },
   config
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
+  tabBarLabel: "Run",
+  tabBarIcon: ({ tintColor }) => (
+    <FontAwesomeIcon icon={faRunning} size={26} color={tintColor} />
+  )
 };
 
-HomeStack.path = '';
+HomeStack.path = "";
 
 const HistoryStack = createStackNavigator(
   {
-    History: HistoryScreen,
+    History: HistoryScreen
   },
   config
 );
 
 HistoryStack.navigationOptions = {
-  tabBarLabel: 'History',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
-  ),
+  tabBarLabel: "Historic",
+  tabBarIcon: ({ tintColor }) => (
+    <Icon name="history" size={26} color={tintColor} />
+  )
 };
 
-HistoryStack.path = '';
+HistoryStack.path = "";
 
 const SettingsStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Settings: SettingsScreen
   },
   config
 );
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-  ),
+  tabBarLabel: "Profil",
+  tabBarIcon: ({ tintColor }) => (
+    <Icon name="user" size={26} color={tintColor} />
+  )
 };
 
-SettingsStack.path = '';
+SettingsStack.path = "";
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   HistoryStack,
-  SettingsStack,
+  SettingsStack
 });
 
-tabNavigator.path = '';
+tabNavigator.path = "";
 
 export default tabNavigator;
