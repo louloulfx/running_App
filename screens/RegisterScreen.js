@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Text, Button, Image, TextInput } from "react-native";
 
-export default class LoginScreen extends Component {
+export default class RegisterScreen extends Component {
   constructor(props) {
     super(props);
   }
@@ -22,19 +22,26 @@ export default class LoginScreen extends Component {
             ></Image>
           </View>
           <Text style={styles.text_style}>IDENTIFIANT</Text>
-          <TextInput style={styles.input} editable={true} />
-          <Text style={styles.text_style}>MOT DE PASSE</Text>
           <TextInput style={styles.input} />
+          <Text style={styles.text_style}>E-MAIL</Text>
+          <TextInput style={styles.input} />
+          <Text style={styles.text_style}>DATE DE NAISSANCE</Text>
+          <TextInput style={styles.input} />
+          <Text style={styles.text_style}>MOT DE PASSE</Text>
+          <TextInput secureTextEntry={true} style={styles.input} />
+          <Text style={styles.text_style}>CONFIRMATION DE MOT DE PASSE</Text>
+          <TextInput secureTextEntry={true} style={styles.input} />
           <Button
-            title="SE CONNECTER"
+            title="S'INSCRIRE"
             onPress={() => this.props.navigation.navigate("Home")}
           />
         </View>
+        {/* <Text style={styles.text_style}>
+          Pas encore de compte ? Inscris-toi ici !
+        </Text> */}
         <View style={styles.container}>
-          <Text>Pas encore de compte ?</Text>
-          <Text onPress={() => this.props.navigation.navigate("Register")}>
-            {" "}
-            Inscris-toi ici !
+          <Text onPress={() => this.props.navigation.navigate("Login")}>
+            Annuler
           </Text>
         </View>
       </View>
@@ -42,7 +49,7 @@ export default class LoginScreen extends Component {
   }
 }
 
-LoginScreen.navigationOptions = {
+RegisterScreen.navigationOptions = {
   header: null
 };
 
@@ -57,14 +64,13 @@ const styles = StyleSheet.create({
   run_man: {
     width: 85,
     height: 100,
-    marginBottom: 15
+    marginBottom: 5
   },
   input: {
     borderWidth: 1,
-    marginTop: 15,
     borderColor: "#c8c8c8",
-    marginBottom: 20,
-    width: "100%"
+    width: "100%",
+    marginBottom: 10
   },
   button: {
     marginTop: 10,
@@ -75,6 +81,8 @@ const styles = StyleSheet.create({
   },
   input_container: {
     padding: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
     marginRight: 30,
     marginLeft: 30,
     display: "flex",
