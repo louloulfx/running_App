@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Platform, Text, View, StyleSheet, Dimensions, TouchableNativeFeedback } from 'react-native';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -33,6 +33,10 @@ export default class LocationComponent extends Component {
     this.setState({ location });
   };
 
+  _onPressButton() {
+    alert('Are you ready to run ?')
+  }
+
   render() {
     let lat = 0;
     let long = 0;
@@ -48,6 +52,15 @@ export default class LocationComponent extends Component {
       //   <Text style={styles.paragraph}>{text}</Text>
       // </View>
       <View style={styles.container}>
+
+        <View style={styles.overlay} >
+          <TouchableNativeFeedback style={styles.button} onPress={this._onPressButton}>
+          <View style={styles.button}>
+          <Text>RUN</Text>
+          </View>
+          </TouchableNativeFeedback>
+        </View>
+
         <MapView
           region={{
             latitude: lat,
@@ -71,10 +84,6 @@ export default class LocationComponent extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight + 35,
   },
   mapStyle: {
     width: Dimensions.get('window').width,
@@ -85,4 +94,26 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
   },
+  button: {
+    backgroundColor: '#8bc34a',
+    display: 'flex',
+    alignItems:'center',
+    justifyContent:'center',
+    width:300,
+    height:50,
+    color: '#000',
+    zIndex: 2,
+    borderRadius: 10,
+
+  },
+  overlay: {
+    position: 'absolute',
+    zIndex: 1,
+    display: 'flex',
+    alignItems:'center',
+    justifyContent:'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  }
 });

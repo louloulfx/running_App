@@ -4,8 +4,6 @@ import {
   Platform,
   StyleSheet,
   View,
-  Dimensions,
-  Button
 } from 'react-native';
 
 import LocationComponent from '../components/MapComponent';
@@ -13,13 +11,7 @@ import LocationComponent from '../components/MapComponent';
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Button
-        onPress={() => {
-          alert('Are you ready to run ?');
-        }}
-        title="RUN"
-      />
-      {/* <LocationComponent /> */}
+      <LocationComponent />
     </View>
   );
 }
@@ -34,6 +26,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  
+  }
+
 });
