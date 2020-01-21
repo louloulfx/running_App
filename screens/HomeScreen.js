@@ -1,23 +1,18 @@
-import * as WebBrowser from 'expo-web-browser';
 import MapView from 'react-native-maps';
 import React from 'react';
 import {
-  Image,
   Platform,
-  ScrollView,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
   Dimensions 
 } from 'react-native';
 
-import { MonoText } from '../components/StyledText';
+import LocationComponent from '../components/MapComponent';
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <MapView style={styles.mapStyle} />
+      <LocationComponent />
     </View>
   );
 }
