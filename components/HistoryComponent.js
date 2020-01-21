@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   img: {
     width: 130,
     height: 80,
-    borderColor: "#262626",
+    borderColor: "#c8c8c8",
     borderWidth: 1,
     borderTopRightRadius: 30,
     borderBottomLeftRadius: 30,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     height: 100,
     borderWidth: 1,
-    borderColor: "#262626",
+    borderColor: "#c8c8c8",
     marginBottom: 15,
     marginRight: 15,
     marginLeft: 15
