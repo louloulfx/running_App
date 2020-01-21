@@ -48,12 +48,21 @@ export default class LocationComponent extends Component {
       //   <Text style={styles.paragraph}>{text}</Text>
       // </View>
       <View style={styles.container}>
-        <MapView followsUserLocation={true} showsUserLocation={true} style={styles.mapStyle} >
-        <Marker coordinate={{ latitude: lat, longitude: long }}>
-          <View style={{ backgroundColor: "red", padding: 10 }}>
-            <Text>{lat},{long}</Text>
-          </View>
-        </Marker>
+        <MapView
+          region={{
+            latitude: lat,
+            longitude: long,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          }}
+          followsUserLocation={true}
+          showsUserLocation={true}
+          style={styles.mapStyle} >
+          <Marker coordinate={{ latitude: lat, longitude: long }}>
+            <View style={{ backgroundColor: "red", padding: 10 }}>
+              <Text>{lat},{long}</Text>
+            </View>
+          </Marker>
         </MapView>
       </View>
     );
