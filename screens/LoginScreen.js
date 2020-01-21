@@ -1,33 +1,41 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, StyleSheet, Text, Button, Image, TextInput } from "react-native";
 
-export default function LoginScreen() {
-  return (
-    <View style={styles.main_container}>
-      <View style={styles.logo_container}>
-        <Image
-          style={styles.logo}
-          source={require("../assets/images/Logo.png")}
-        ></Image>
-      </View>
-      <View style={styles.input_container}>
-        <View style={styles.run_man_view}>
+export default class LoginScreen extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <View style={styles.main_container}>
+        <View style={styles.logo_container}>
           <Image
-            style={styles.run_man}
-            source={require("../assets/images/bonhommequicours.png")}
+            style={styles.logo}
+            source={require("../assets/images/Logo.png")}
           ></Image>
         </View>
-        <Text style={styles.text_style}>IDENTIFIANT</Text>
-        <TextInput style={styles.input} editable={true} />
-        <Text style={styles.text_style}>MOT DE PASSE</Text>
-        <TextInput style={styles.input} />
-        <Button title="SE CONNECTER" />
+        <View style={styles.input_container}>
+          <View style={styles.run_man_view}>
+            <Image
+              style={styles.run_man}
+              source={require("../assets/images/bonhommequicours.png")}
+            ></Image>
+          </View>
+          <Text style={styles.text_style}>IDENTIFIANT</Text>
+          <TextInput style={styles.input} editable={true} />
+          <Text style={styles.text_style}>MOT DE PASSE</Text>
+          <TextInput style={styles.input} />
+          <Button
+            title="SE CONNECTER"
+            onPress={() => this.props.navigation.navigate("Home")}
+          />
+        </View>
+        <Text style={styles.text_style}>
+          Pas encore de compte ? Inscris-toi ici !
+        </Text>
       </View>
-      <Text style={styles.text_style}>
-        Pas encore de compte ? Inscris-toi ici !
-      </Text>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
