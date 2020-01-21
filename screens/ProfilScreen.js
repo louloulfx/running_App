@@ -1,16 +1,16 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import HistoryComponent from "../components/HistoryComponent";
+import ProfilComponent from "../components/ProfilComponent";
 
-export default function HistoryScreen() {
+export default function ProfilScreen() {
   return (
     <ScrollView style={styles.container}>
-      <HistoryComponent />
+      <ProfilComponent />
     </ScrollView>
   );
 }
 
-HistoryScreen.navigationOptions = {
+ProfilScreen.navigationOptions = {
   header: null
 };
 

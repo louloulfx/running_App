@@ -7,7 +7,7 @@ import {
 
 import HomeScreen from "../screens/HomeScreen";
 import HistoryScreen from "../screens/HistoryScreen";
-import SettingsScreen from "../screens/SettingsScreen";
+import ProfilScreen from "../screens/ProfilScreen";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faRunning } from "@fortawesome/free-solid-svg-icons";
@@ -49,26 +49,26 @@ HistoryStack.navigationOptions = {
 
 HistoryStack.path = "";
 
-const SettingsStack = createStackNavigator(
+const ProfilStack = createStackNavigator(
   {
-    Settings: SettingsScreen
+    Profil: ProfilScreen
   },
   config
 );
 
-SettingsStack.navigationOptions = {
+ProfilStack.navigationOptions = {
   tabBarLabel: "Profil",
   tabBarIcon: ({ tintColor }) => (
     <Icon name="user" size={26} color={tintColor} />
   )
 };
 
-SettingsStack.path = "";
+ProfilStack.path = "";
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   HistoryStack,
-  SettingsStack
+  ProfilStack
 });
 
 tabNavigator.path = "";
