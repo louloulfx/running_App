@@ -40,7 +40,10 @@ export default class RegisterScreen extends Component {
           Pas encore de compte ? Inscris-toi ici !
         </Text> */}
         <View style={styles.container}>
-          <Text onPress={() => this.props.navigation.navigate("Login")}>
+          <Text
+            style={styles.textBleu}
+            onPress={() => this.props.navigation.navigate("Login")}
+          >
             Annuler
           </Text>
         </View>
@@ -54,6 +57,9 @@ RegisterScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
+  textBleu: {
+    color: "blue"
+  },
   logo: {
     width: 200,
     height: 100

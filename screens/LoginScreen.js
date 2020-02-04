@@ -32,7 +32,10 @@ export default class LoginScreen extends Component {
         </View>
         <View style={styles.container}>
           <Text>Pas encore de compte ?</Text>
-          <Text onPress={() => this.props.navigation.navigate("Register")}>
+          <Text
+            style={styles.textBleu}
+            onPress={() => this.props.navigation.navigate("Register")}
+          >
             {" "}
             Inscris-toi ici !
           </Text>
@@ -47,6 +50,9 @@ LoginScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
+  textBleu: {
+    color: "blue"
+  },
   logo: {
     width: 200,
     height: 100
