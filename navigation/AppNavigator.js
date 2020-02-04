@@ -23,7 +23,7 @@ export default createAppContainer(
       Loading,
       RegisterScreen,
       LoginScreen,
-      Main
+      MainTabNavigator
     },
     { initialRouteName: "Loading" }
   )
