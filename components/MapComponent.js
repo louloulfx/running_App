@@ -43,10 +43,6 @@ export default class LocationComponent extends Component {
     this.setState({ location });
   };
 
-  _onPressButton() {
-    alert("Are you ready to run ?");
-  }
-
   render() {
     let lat = 0;
     let long = 0;
@@ -60,7 +56,7 @@ export default class LocationComponent extends Component {
     return (
 
       <View style={styles.container}>
-      <OverlayComponent />
+        <OverlayComponent />
         <MapView
           region={{
             latitude: lat,
