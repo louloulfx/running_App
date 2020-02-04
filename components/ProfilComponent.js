@@ -34,7 +34,9 @@ class ProfilComponent extends Component {
           <View>
             <Text style={styles.title}>{this.state.titleEmail}</Text>
             <View style={styles.container}>
-              <TextInput style={styles.text}>{this.state.email}</TextInput>
+              <TextInput style={styles.text}>
+                {this.props.currentUser}
+              </TextInput>
             </View>
           </View>
           <View>

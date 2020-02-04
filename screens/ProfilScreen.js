@@ -13,7 +13,7 @@ export default class ProfilScreen extends React.Component {
     const { currentUser } = this.state;
     return (
       <ScrollView style={styles.container}>
-        <ProfilComponent />
+        <ProfilComponent currentUser={currentUser && currentUser.email} />
       </ScrollView>
     );
   }

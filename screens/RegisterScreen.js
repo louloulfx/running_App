@@ -9,7 +9,7 @@ export default class RegisterScreen extends Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate("Main"))
+      .then(() => this.props.navigation.navigate("MainTabNavigator"))
       .catch(error => this.setState({ errorMessage: error.message }));
   };
 
