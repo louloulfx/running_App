@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import { View, StyleSheet, Text, Button, Image, TextInput } from "react-native";
-
-export default class LoginScreen extends Component {
-  constructor(props) {
-    super(props);
-  }
+import React from "react";
+import { StyleSheet, Text, TextInput, View, Button, Image } from "react-native";
+export default class LoginScreen extends React.Component {
+  state = { email: "", password: "", errorMessage: null };
+  handleLogin = () => {
+    // TODO: Firebase stuff...
+    console.log("handleLogin");
+  };
   render() {
     return (
       <View style={styles.main_container}>
@@ -21,20 +22,37 @@ export default class LoginScreen extends Component {
               source={require("../assets/images/bonhommequicours.png")}
             ></Image>
           </View>
-          <Text style={styles.text_style}>IDENTIFIANT</Text>
-          <TextInput style={styles.input} editable={true} />
+          {this.state.errorMessage && (
+            <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
+          )}
+          <Text style={styles.text_style}>EMAIL</Text>
+          <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            placeholder="Email"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+          />
           <Text style={styles.text_style}>MOT DE PASSE</Text>
-          <TextInput style={styles.input} />
-          <Button
+          <TextInput
+            style={styles.input}
+            secureTextEntry
+            autoCapitalize="none"
+            placeholder="Password"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+          />
+          {/* <Button
             title="SE CONNECTER"
             onPress={() => this.props.navigation.navigate("Home")}
-          />
+          /> */}
+          <Button title="Login" onPress={this.handleLogin} />
         </View>
         <View style={styles.container}>
           <Text>Pas encore de compte ?</Text>
           <Text
             style={styles.textBleu}
-            onPress={() => this.props.navigation.navigate("Register")}
+            onPress={() => this.props.navigation.navigate("RegisterScreen")}
           >
             {" "}
             Inscris-toi ici !
@@ -44,7 +62,6 @@ export default class LoginScreen extends Component {
     );
   }
 }
-
 LoginScreen.navigationOptions = {
   header: null
 };

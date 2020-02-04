@@ -8,6 +8,8 @@ import {
 import MainTabNavigator from "./MainTabNavigator";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
+import Loading from "../screens/Loading";
+import Main from "../screens/Main";
 
 const LoginNavigator = createStackNavigator({
   Login: { screen: LoginScreen },
@@ -16,9 +18,9 @@ const LoginNavigator = createStackNavigator({
 
 export default createAppContainer(
   createSwitchNavigator({
-    // You could add another route here for authentication.
-    // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-    AuthLoading: LoginNavigator,
-    Main: MainTabNavigator
+    Loading,
+    RegisterScreen,
+    LoginScreen,
+    Main
   })
 );

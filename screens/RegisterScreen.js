@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import { View, StyleSheet, Text, Button, Image, TextInput } from "react-native";
 
 export default class RegisterScreen extends Component {
+  state = { email: "", password: "", errorMessage: null };
+
+  handleSignUp = () => {
+    // TODO: Firebase stuff...
+    console.log("handleSignUp");
+  };
+
   constructor(props) {
     super(props);
   }
@@ -21,20 +28,38 @@ export default class RegisterScreen extends Component {
               source={require("../assets/images/bonhommequicours.png")}
             ></Image>
           </View>
+          {this.state.errorMessage && (
+            <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
+          )}
           <Text style={styles.text_style}>IDENTIFIANT</Text>
           <TextInput style={styles.input} />
           <Text style={styles.text_style}>E-MAIL</Text>
-          <TextInput style={styles.input} />
+          <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+          />
           <Text style={styles.text_style}>DATE DE NAISSANCE</Text>
           <TextInput style={styles.input} />
-          <Text style={styles.text_style}>MOT DE PASSE</Text>
+          <Text
+            style={styles.text_style}
+            secureTextEntry
+            placeholder="Password"
+            autoCapitalize="none"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+          >
+            MOT DE PASSE
+          </Text>
           <TextInput secureTextEntry={true} style={styles.input} />
           <Text style={styles.text_style}>CONFIRMATION DE MOT DE PASSE</Text>
           <TextInput secureTextEntry={true} style={styles.input} />
-          <Button
+          {/* <Button
             title="S'INSCRIRE"
             onPress={() => this.props.navigation.navigate("Home")}
-          />
+          /> */}
+          <Button title="Sign Up" onPress={this.handleSignUp} />
         </View>
         {/* <Text style={styles.text_style}>
           Pas encore de compte ? Inscris-toi ici !
@@ -42,7 +67,7 @@ export default class RegisterScreen extends Component {
         <View style={styles.container}>
           <Text
             style={styles.textBleu}
-            onPress={() => this.props.navigation.navigate("Login")}
+            onPress={() => this.props.navigation.navigate("LoginScreen")}
           >
             Annuler
           </Text>
