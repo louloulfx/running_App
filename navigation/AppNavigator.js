@@ -5,6 +5,7 @@ import {
   createStackNavigator
 } from "react-navigation";
 
+import { StyleSheet, Platform, Image, Text, View } from "react-native";
 import MainTabNavigator from "./MainTabNavigator";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
@@ -17,10 +18,13 @@ const LoginNavigator = createStackNavigator({
 });
 
 export default createAppContainer(
-  createSwitchNavigator({
-    Loading,
-    RegisterScreen,
-    LoginScreen,
-    Main
-  })
+  createSwitchNavigator(
+    {
+      Loading,
+      RegisterScreen,
+      LoginScreen,
+      Main
+    },
+    { initialRouteName: "Loading" }
+  )
 );

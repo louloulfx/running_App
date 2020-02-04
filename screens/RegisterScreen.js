@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Text, Button, Image, TextInput } from "react-native";
+import firebase from "firebase";
 
 export default class RegisterScreen extends Component {
   state = { email: "", password: "", errorMessage: null };
 
   handleSignUp = () => {
-    // TODO: Firebase stuff...
-    console.log("handleSignUp");
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => this.props.navigation.navigate("Main"))
+      .catch(error => this.setState({ errorMessage: error.message }));
   };
 
   constructor(props) {
@@ -42,19 +46,16 @@ export default class RegisterScreen extends Component {
           />
           <Text style={styles.text_style}>DATE DE NAISSANCE</Text>
           <TextInput style={styles.input} />
-          <Text
-            style={styles.text_style}
+          <Text style={styles.text_style}>MOT DE PASSE</Text>
+          <TextInput
             secureTextEntry
-            placeholder="Password"
             autoCapitalize="none"
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
-          >
-            MOT DE PASSE
-          </Text>
-          <TextInput secureTextEntry={true} style={styles.input} />
+            style={styles.input}
+          />
           <Text style={styles.text_style}>CONFIRMATION DE MOT DE PASSE</Text>
-          <TextInput secureTextEntry={true} style={styles.input} />
+          <TextInput style={styles.input} />
           {/* <Button
             title="S'INSCRIRE"
             onPress={() => this.props.navigation.navigate("Home")}
