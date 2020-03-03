@@ -6,36 +6,63 @@ export default class OverlayComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { isRunning: false, second: 0 };
+        this.state = {
+            isRunning: false,
+            isPaused: false,
+            time: 0
+        };
         this.stopRun = this.stopRun.bind(this);
-        this.displayRun = this.displayRun.bind(this);
+        this.launchRun = this.launchRun.bind(this);
+        this.startTimer = this.startTimer.bind(this);
+        this.pauseRun = this.pauseRun.bind(this);
+
     }
 
-    Running(pushed) {
+    // getFormattedTime(time) {
+    //     this.currentTime = time;
+    // };
+
+    Running(pause, stop) {
+        this.state.isPaused ? icon = "play" : icon = "pause";
         return (
             <View style={runningStyle.overlay} >
                 <View style={runningStyle.up}>
                     <Text>Nb KM</Text>
-                    {/* {Timer()} */}
+                    <Text style={runningStyle.chrono} >
+                        {this.msToTime(this.state.time)}
+                    </Text>
                 </View>
                 <View style={runningStyle.down}>
-                    <TouchableNativeFeedback onPress={pushed}>
+                    <TouchableNativeFeedback onPress={pause}>
                         <View style={[runningStyle.button_pause, runningStyle.button]}>
-                            <Icon name="pause" size={26} color="white" />
+                            <Icon name={icon} size={26} color="white" />
                         </View>
                     </TouchableNativeFeedback>
 
                     <View style={runningStyle.middle} ></View>
 
-                    <TouchableNativeFeedback onPress={pushed}>
+                    <TouchableNativeFeedback onPress={stop}>
                         <View style={[runningStyle.button_stop, runningStyle.button]}>
                             <Icon name="square" size={26} color="white" />
                         </View>
                     </TouchableNativeFeedback>
+
                 </View>
 
             </View>
         );
+    }
+
+    startTimer() {
+        this.timer = setInterval(() => this.setState({
+            time: this.state.time + 1000
+        }), 1000);
+    }
+
+    msToTime(s) {
+        // Pad to 2 or 3 digits, default is 2
+        var pad = (n, z = 2) => ('00' + n).slice(-z);
+        return pad(s / 3.6e6 | 0) + ':' + pad((s % 3.6e6) / 6e4 | 0) + ':' + pad((s % 6e4) / 1000 | 0);
     }
 
     NotRunning(pushed) {
@@ -51,20 +78,33 @@ export default class OverlayComponent extends Component {
     }
 
     stopRun() {
-        this.setState({ isRunning: false, second: 0 });
+        this.setState({ isRunning: false, time: 0 });
         console.log("isRunning set to false");
     };
 
-    displayRun() {
+    pauseRun() {
+        if (this.state.isPaused) {
+            this.setState({ isPaused: false });
+            this.startTimer();
+        } else {
+            this.setState({ isPaused: true });
+            clearInterval(this.timer);
+            console.log("pause")
+        }
+
+    }
+
+    launchRun() {
         this.setState({ isRunning: true });
+        this.startTimer();
         console.log("isRunning set to true");
     };
 
     render() {
         if (this.state.isRunning) {
-            return (this.Running(this.stopRun))
+            return (this.Running(this.pauseRun, this.stopRun))
         } else {
-            return (this.NotRunning(this.displayRun))
+            return (this.NotRunning(this.launchRun))
         }
     }
 }
@@ -129,6 +169,9 @@ const runningStyle = StyleSheet.create({
         display: 'flex',
         width: '100%',
         alignItems: 'center'
+    },
+    chrono: {
+        fontSize: 40,
     },
     button: {
         display: 'flex',
