@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   main_container: {
     paddingTop: 40,
-    paddingBottom: 35,
+    paddingBottom: 45,
     display: "flex",
     height: "100%",
     flexDirection: "column",
