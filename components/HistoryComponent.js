@@ -1,12 +1,16 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import dbh from "../db";
+import firebase from "firebase";
+import { TextInput } from "react-native-gesture-handler";
 
 const courses = dbh.collection("courses");
 
 class HistoryComponent extends React.Component {
-  state = { data: [] };
+  state = { data: [], uid: "" };
   componentDidMount() {
+    const { currentUser } = firebase.auth();
+    this.setState({ uid: currentUser.uid });
     let courseList = [];
     courses
       .get()
@@ -49,44 +53,46 @@ class HistoryComponent extends React.Component {
     return (
       <View>
         {this.state.data.map((data, index) => {
-          return (
-            <View key={index} style={styles.main_container}>
-              <View style={styles.container1}>
+          if (data.user_id == this.state.uid) {
+            return (
+              <View key={index} style={styles.main_container}>
+                <View style={styles.container1}>
+                  <View
+                    style={{
+                      flex: 1,
+                      alignItems: "center",
+                      flexDirection: "row"
+                    }}
+                  >
+                    <Text style={styles.date}>{data.start_date.date}</Text>
+                    <Text style={styles.hour}>{data.start_date.hour}</Text>
+                  </View>
+                  <View style={styles.hr} />
+                  <View
+                    style={{
+                      flex: 1,
+                      alignItems: "center",
+                      flexDirection: "row"
+                    }}
+                  >
+                    <Text style={styles.time}>
+                      {data.start_date.runTime} • {data.distance} km
+                    </Text>
+                  </View>
+                </View>
                 <View
                   style={{
-                    flex: 1,
-                    alignItems: "center",
-                    flexDirection: "row"
+                    flex: 4
                   }}
                 >
-                  <Text style={styles.date}>{data.start_date.date}</Text>
-                  <Text style={styles.hour}>{data.start_date.hour}</Text>
-                </View>
-                <View style={styles.hr} />
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: "center",
-                    flexDirection: "row"
-                  }}
-                >
-                  <Text style={styles.time}>
-                    {data.start_date.runTime} • {data.distance} km
-                  </Text>
+                  <Image
+                    source={require("../assets/images/maptest.png")}
+                    style={styles.img}
+                  ></Image>
                 </View>
               </View>
-              <View
-                style={{
-                  flex: 4
-                }}
-              >
-                <Image
-                  source={require("../assets/images/maptest.png")}
-                  style={styles.img}
-                ></Image>
-              </View>
-            </View>
-          );
+            );
+          }
         })}
       </View>
     );
