@@ -1,5 +1,5 @@
-import firebase from 'firebase'
-import '@firebase/firestore';
+import firebase from "firebase";
+import "@firebase/firestore";
 // Initialize Firebase
 const firebaseConfig = {
   projectId: "runningapp-da94c",
@@ -13,4 +13,4 @@ firebase.initializeApp(firebaseConfig);
 
 const dbh = firebase.firestore();
 
-export default dbh
+export default dbh;
