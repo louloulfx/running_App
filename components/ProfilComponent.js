@@ -78,14 +78,6 @@ class ProfilComponent extends Component {
             </View>
           </View>
           <View>
-            <Text style={styles.title}>{this.state.titlePassword}</Text>
-            <View style={styles.container}>
-              <TextInput style={styles.text} placeholder="Password">
-                {this.state.password}
-              </TextInput>
-            </View>
-          </View>
-          <View>
             <View style={styles.button}>
               <Button
                 title="MODIFIER"
@@ -117,7 +109,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 10,
     borderTopLeftRadius: 10,
-    height: 450,
+    height: 400,
     borderWidth: 1,
     borderColor: "#c8c8c8",
     marginBottom: 15,
@@ -125,7 +117,7 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginTop: 30,
     padding: 15,
-    paddingBottom: 25
+    paddingBottom: 45
   },
   container: {
     borderRadius: 5,
