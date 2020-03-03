@@ -4,6 +4,19 @@ import firebase from "firebase";
 import HelloComponent from "../components/model/HelloComponent";
 
 class ProfilComponent extends Component {
+  state = {
+    titleIdentifiant: "IDENTIFIANT",
+    titleEmail: "E-MAIL",
+    titleBirthday: "DATE DE NAISSANCE",
+    titlePassword: "MOT DE PASSE",
+    nom: "",
+    email: "",
+    birthday: "",
+    password: "",
+    editButton: "MODIFIER",
+    logoutButton: "DECONNEXION"
+  };
+
   componentDidMount() {
     const { currentUser } = firebase.auth();
     firebase
@@ -11,33 +24,15 @@ class ProfilComponent extends Component {
       .collection("users")
       .doc(currentUser.uid)
       .get()
-      .then(function(doc) {
-        if (doc.exists) {
-          console.log("Document data:", doc.data());
-        } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-        }
+      .then(doc => {
+        this.setState({
+          birthday: doc.data().birthday,
+          nom: doc.data().username
+        });
       })
       .catch(function(error) {
         console.log("Error getting document:", error);
       });
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      titleIdentifiant: "IDENTIFIANT",
-      titleEmail: "E-MAIL",
-      titleBirthday: "DATE DE NAISSANCE",
-      titlePassword: "MOT DE PASSE",
-      nom: "Coco",
-      email: "coco@ynov.com",
-      birthday: "12/05/2019",
-      password: "***********",
-      editButton: "MODIFIER",
-      logoutButton: "DECONNEXION"
-    };
   }
   signOutUser = async () => {
     try {
