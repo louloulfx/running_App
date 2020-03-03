@@ -3,13 +3,31 @@ import { View, StyleSheet, Text, Button, Image, TextInput } from "react-native";
 import firebase from "firebase";
 
 export default class RegisterScreen extends Component {
-  state = { email: "", password: "", errorMessage: null };
+  state = {
+    email: "",
+    password: "",
+    identifiant: "",
+    birthday: "",
+    errorMessage: null
+  };
 
   handleSignUp = () => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate("MainTabNavigator"))
+      .then(data => {
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(data.user.uid)
+          .set({
+            email: this.state.email,
+            username: this.state.identifiant,
+            birthday: this.state.birthday,
+            role: "user"
+          });
+        this.props.navigation.navigate("MainTabNavigator");
+      })
       .catch(error => this.setState({ errorMessage: error.message }));
   };
 
@@ -36,7 +54,12 @@ export default class RegisterScreen extends Component {
             <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
           )}
           <Text style={styles.text_style}>IDENTIFIANT</Text>
-          <TextInput style={styles.input} />
+          <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            onChangeText={identifiant => this.setState({ identifiant })}
+            value={this.state.identifiant}
+          />
           <Text style={styles.text_style}>E-MAIL</Text>
           <TextInput
             style={styles.input}
@@ -45,7 +68,12 @@ export default class RegisterScreen extends Component {
             value={this.state.email}
           />
           <Text style={styles.text_style}>DATE DE NAISSANCE</Text>
-          <TextInput style={styles.input} />
+          <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            onChangeText={birthday => this.setState({ birthday })}
+            value={this.state.birthday}
+          />
           <Text style={styles.text_style}>MOT DE PASSE</Text>
           <TextInput
             secureTextEntry
@@ -54,8 +82,6 @@ export default class RegisterScreen extends Component {
             value={this.state.password}
             style={styles.input}
           />
-          <Text style={styles.text_style}>CONFIRMATION DE MOT DE PASSE</Text>
-          <TextInput style={styles.input} />
           {/* <Button
             title="S'INSCRIRE"
             onPress={() => this.props.navigation.navigate("Home")}
