@@ -47,13 +47,19 @@ class ProfilComponent extends Component {
           <View>
             <Text style={styles.title}>{this.state.titleIdentifiant}</Text>
             <View style={styles.container}>
-              <TextInput style={styles.text}>{this.state.nom}</TextInput>
+              <TextInput style={styles.text} placeholder="Login">
+                {this.state.nom}
+              </TextInput>
             </View>
           </View>
           <View>
             <Text style={styles.title}>{this.state.titleEmail}</Text>
             <View style={styles.container}>
-              <TextInput style={styles.text} editable={false}>
+              <TextInput
+                style={styles.text}
+                placeholder="Email"
+                editable={false}
+              >
                 {this.props.currentUser}
               </TextInput>
             </View>
@@ -61,17 +67,21 @@ class ProfilComponent extends Component {
           <View>
             <Text style={styles.title}>{this.state.titleBirthday}</Text>
             <View style={styles.container}>
-              <TextInput style={styles.text}>{this.state.birthday}</TextInput>
+              <TextInput style={styles.text} placeholder="Birthday">
+                {this.state.birthday}
+              </TextInput>
             </View>
           </View>
           <View>
             <Text style={styles.title}>{this.state.titlePassword}</Text>
             <View style={styles.container}>
-              <TextInput style={styles.text}>{this.state.password}</TextInput>
+              <TextInput style={styles.text} placeholder="Password">
+                {this.state.password}
+              </TextInput>
             </View>
           </View>
           <View>
-            <View>
+            <View style={styles.button}>
               <Button
                 title="MODIFIER"
                 color="#8bc34a"
@@ -102,7 +112,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 10,
     borderTopLeftRadius: 10,
-    height: 500,
+    height: 450,
     borderWidth: 1,
     borderColor: "#c8c8c8",
     marginBottom: 15,
@@ -110,7 +120,7 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginTop: 30,
     padding: 15,
-    paddingBottom: 50
+    paddingBottom: 25
   },
   container: {
     borderRadius: 5,
