@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button, TextInput } from "react-native";
-
+import firebase from "firebase";
 import HelloComponent from "../components/model/HelloComponent";
 
 class ProfilComponent extends Component {
@@ -19,7 +19,13 @@ class ProfilComponent extends Component {
       logoutButton: "DECONNEXION"
     };
   }
-
+  signOutUser = async () => {
+    try {
+      await firebase.auth().signOut();
+    } catch (e) {
+      console.log(e);
+    }
+  };
   render() {
     return (
       <View style={{ width: "100%", height: "100%" }}>
@@ -56,7 +62,11 @@ class ProfilComponent extends Component {
               <Button title="MODIFIER" color="#8bc34a"></Button>
             </View>
             <View style={styles.button}>
-              <Button title="DECONNEXION" color="#ff5722"></Button>
+              <Button
+                title="DECONNEXION"
+                color="#ff5722"
+                onPress={this.signOutUser}
+              ></Button>
             </View>
           </View>
         </View>
