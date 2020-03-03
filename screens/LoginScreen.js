@@ -24,7 +24,7 @@ export default class LoginScreen extends React.Component {
           <View style={styles.run_man_view}>
             <Image
               style={styles.run_man}
-              source={require("../assets/images/bonhommequicours.png")}
+              source={require("../assets/images/running-person.png")}
             ></Image>
           </View>
           {this.state.errorMessage && (
@@ -47,10 +47,6 @@ export default class LoginScreen extends React.Component {
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
           />
-          {/* <Button
-            title="SE CONNECTER"
-            onPress={() => this.props.navigation.navigate("Home")}
-          /> */}
           <Button title="Login" onPress={this.handleLogin} />
         </View>
         <View style={styles.container}>
@@ -92,7 +88,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
     borderColor: "#c8c8c8",
     marginBottom: 20,
-    width: "100%"
+    width: "100%",
+    paddingLeft: 10
   },
   button: {
     marginTop: 10,

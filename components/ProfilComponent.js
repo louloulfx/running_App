@@ -26,6 +26,9 @@ class ProfilComponent extends Component {
       console.log(e);
     }
   };
+  update() {
+    firebase.auth();
+  }
   render() {
     return (
       <View style={{ width: "100%", height: "100%" }}>
@@ -40,7 +43,7 @@ class ProfilComponent extends Component {
           <View>
             <Text style={styles.title}>{this.state.titleEmail}</Text>
             <View style={styles.container}>
-              <TextInput style={styles.text}>
+              <TextInput style={styles.text} editable={false}>
                 {this.props.currentUser}
               </TextInput>
             </View>
@@ -59,7 +62,11 @@ class ProfilComponent extends Component {
           </View>
           <View>
             <View>
-              <Button title="MODIFIER" color="#8bc34a"></Button>
+              <Button
+                title="MODIFIER"
+                color="#8bc34a"
+                onPress={this.update()}
+              ></Button>
             </View>
             <View style={styles.button}>
               <Button

@@ -2,19 +2,6 @@ import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import dbh from "../db";
 
-// getbyid
-// const courses = dbh.collection('courses').doc('KPr3c7ZydkfvWiQW2unk')
-// courses.get().then(function(doc) {
-//     if (doc.exists) {
-//         console.log("Document data:", doc.data());
-//     } else {
-//         // doc.data() will be undefined in this case
-//         console.log("No such document!");
-//     }
-// }).catch(function(error) {
-//     console.log("Error getting document:", error);
-// });
-
 const courses = dbh.collection("courses");
 
 class HistoryComponent extends React.Component {
@@ -53,7 +40,6 @@ class HistoryComponent extends React.Component {
           courseList.push(doc.data());
         });
         this.setState({ data: courseList });
-        console.log(this.state.data[0]);
       })
       .catch(err => {
         console.log("Error getting documents", err);

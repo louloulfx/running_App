@@ -47,7 +47,7 @@ export default class RegisterScreen extends Component {
           <View style={styles.run_man_view}>
             <Image
               style={styles.run_man}
-              source={require("../assets/images/bonhommequicours.png")}
+              source={require("../assets/images/running-person.png")}
             ></Image>
           </View>
           {this.state.errorMessage && (
@@ -82,15 +82,10 @@ export default class RegisterScreen extends Component {
             value={this.state.password}
             style={styles.input}
           />
-          {/* <Button
-            title="S'INSCRIRE"
-            onPress={() => this.props.navigation.navigate("Home")}
-          /> */}
+          <Text style={styles.text_style}>CONFIRMATION DE MOT DE PASSE</Text>
+          <TextInput style={styles.input} />
           <Button title="Sign Up" onPress={this.handleSignUp} />
         </View>
-        {/* <Text style={styles.text_style}>
-          Pas encore de compte ? Inscris-toi ici !
-        </Text> */}
         <View style={styles.container}>
           <Text
             style={styles.textBleu}
@@ -128,7 +123,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#c8c8c8",
     width: "100%",
-    marginBottom: 10
+    marginBottom: 10,
+    paddingLeft: 10
   },
   button: {
     marginTop: 10,
