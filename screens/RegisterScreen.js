@@ -36,20 +36,22 @@ export default class RegisterScreen extends Component {
             <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
           )}
           <Text style={styles.text_style}>IDENTIFIANT</Text>
-          <TextInput style={styles.input} />
+          <TextInput style={styles.input} placeholder="Login" />
           <Text style={styles.text_style}>E-MAIL</Text>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
+            placeholder="Email"
             onChangeText={email => this.setState({ email })}
             value={this.state.email}
           />
           <Text style={styles.text_style}>DATE DE NAISSANCE</Text>
-          <TextInput style={styles.input} />
+          <TextInput style={styles.input} placeholder="Birthday" />
           <Text style={styles.text_style}>MOT DE PASSE</Text>
           <TextInput
             secureTextEntry
             autoCapitalize="none"
+            placeholder="Password"
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
             style={styles.input}
