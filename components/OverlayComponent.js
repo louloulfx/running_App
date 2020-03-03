@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import { Platform, Text, View, StyleSheet, Dimensions, TouchableNativeFeedback } from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome";
 
-class NotRunning extends Component {
-    render() {
+// Not running overlay
 
+function NotRunning(pushed) {
         return (
             <View style={notRunningStyle.overlay} >
-                <TouchableNativeFeedback style={notRunningStyle.button} onPress={this.props.pushed}>
+                <TouchableNativeFeedback style={notRunningStyle.button} onPress={pushed}>
                     <View style={notRunningStyle.button}>
                         <Text style={{ color: 'white', fontSize: 20 }} >RUN</Text>
                     </View>
                 </TouchableNativeFeedback>
             </View>
         );
-    }
 }
 
 const notRunningStyle = StyleSheet.create({
@@ -50,31 +49,31 @@ const notRunningStyle = StyleSheet.create({
     }
 })
 
-class Running extends Component {
-    render() {
-        return (
-            <View style={runningStyle.overlay} >
-                <View style={runningStyle.up}>
-                    <Text>Nb KM</Text>
-                    <Text>Timer</Text>
-                </View>
-                <View style={runningStyle.down}>
-                    <TouchableNativeFeedback onPress={this.props.pushed}>
-                        <View style={[runningStyle.button_pause, runningStyle.button]}>
-                            <Icon name="pause" size={26} color="white" />
-                        </View>
-                    </TouchableNativeFeedback>
-
-                    <TouchableNativeFeedback onPress={this.props.pushed}>
-                        <View style={[runningStyle.button_stop, runningStyle.button]}>
-                            <Icon name="square" size={26} color="white" />
-                        </View>
-                    </TouchableNativeFeedback>
-                </View>
-
+function Running(pushed) {
+    return (
+        <View style={runningStyle.overlay} >
+            <View style={runningStyle.up}>
+                <Text>Nb KM</Text>
+                <Text>Timer</Text>
             </View>
-        );
-    }
+            <View style={runningStyle.down}>
+                <TouchableNativeFeedback onPress={pushed}>
+                    <View style={[runningStyle.button_pause, runningStyle.button]}>
+                        <Icon name="pause" size={26} color="white" />
+                    </View>
+                </TouchableNativeFeedback>
+
+                <View style={runningStyle.middle} ></View>
+
+                <TouchableNativeFeedback onPress={pushed}>
+                    <View style={[runningStyle.button_stop, runningStyle.button]}>
+                        <Icon name="square" size={26} color="white" />
+                    </View>
+                </TouchableNativeFeedback>
+            </View>
+
+        </View>
+    );
 }
 const runningStyle = StyleSheet.create({
     overlay: {
@@ -94,12 +93,15 @@ const runningStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
+    middle: {
+        width: 40,
+    },
     down: {
         flexDirection: 'row',
         justifyContent: 'center',
         display: 'flex',
         width: '100%',
-        alignItems:'center'
+        alignItems: 'center'
     },
     button: {
         display: 'flex',
@@ -149,9 +151,9 @@ export default class OverlayComponent extends Component {
 
     render() {
         if (this.state.isRunning) {
-            return (<Running pushed={this.stopRun} />)
+            return (Running(this.stopRun))
         } else {
-            return (<NotRunning pushed={this.displayRun} />)
+            return (NotRunning(this.displayRun))
         }
     }
 }
