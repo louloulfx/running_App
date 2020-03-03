@@ -54,16 +54,16 @@ export default class RegisterScreen extends Component {
             value={this.state.password}
             style={styles.input}
           />
-          <Text style={styles.text_style}>CONFIRMATION DE MOT DE PASSE</Text>
-          <TextInput style={styles.input} />
           <Button title="Sign Up" onPress={this.handleSignUp} />
         </View>
         <View style={styles.container}>
+          <Text>Tu as déjà un compte ?</Text>
           <Text
             style={styles.textBleu}
             onPress={() => this.props.navigation.navigate("LoginScreen")}
           >
-            Annuler
+            {" "}
+            Identifie-toi ici !
           </Text>
         </View>
       </View>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   input_container: {
     padding: 30,
     paddingTop: 10,
-    paddingBottom: 10,
+    paddingBottom: 30,
     marginRight: 30,
     marginLeft: 30,
     display: "flex",
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   main_container: {
     paddingTop: 40,
-    paddingBottom: 35,
+    paddingBottom: 45,
     display: "flex",
     height: "100%",
     flexDirection: "column",
