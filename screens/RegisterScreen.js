@@ -57,6 +57,7 @@ export default class RegisterScreen extends Component {
           <TextInput
             style={styles.input}
             autoCapitalize="none"
+            placeholder="Login"
             onChangeText={identifiant => this.setState({ identifiant })}
             value={this.state.identifiant}
           />
@@ -64,6 +65,7 @@ export default class RegisterScreen extends Component {
           <TextInput
             style={styles.input}
             autoCapitalize="none"
+            placeholder="Email"
             onChangeText={email => this.setState({ email })}
             value={this.state.email}
           />
@@ -71,6 +73,7 @@ export default class RegisterScreen extends Component {
           <TextInput
             style={styles.input}
             autoCapitalize="none"
+            placeholder="Birthday"
             onChangeText={birthday => this.setState({ birthday })}
             value={this.state.birthday}
           />
@@ -78,6 +81,7 @@ export default class RegisterScreen extends Component {
           <TextInput
             secureTextEntry
             autoCapitalize="none"
+            placeholder="Password"
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
             style={styles.input}
