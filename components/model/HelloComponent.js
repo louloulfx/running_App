@@ -1,13 +1,28 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import firebase from "firebase";
 
 class HelloComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nom: "Coco",
-      bonjour: "Bonjour, "
-    };
+  state = {
+    nom: "",
+    bonjour: "Bonjour, "
+  };
+
+  componentDidMount() {
+    const { currentUser } = firebase.auth();
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUser.uid)
+      .get()
+      .then(doc => {
+        this.setState({
+          nom: doc.data().username
+        });
+      })
+      .catch(function(error) {
+        console.log("Error getting document:", error);
+      });
   }
 
   render() {
