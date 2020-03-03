@@ -14,8 +14,6 @@ import MapView, { Marker } from "react-native-maps";
 
 import OverlayComponent from '../components/OverlayComponent';
 
-import OverlayComponent from '../components/OverlayComponent';
-
 export default class LocationComponent extends Component {
   state = {
     location: null,
