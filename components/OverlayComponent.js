@@ -2,9 +2,43 @@ import React, { Component } from 'react';
 import { Platform, Text, View, StyleSheet, Dimensions, TouchableNativeFeedback } from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome";
 
-// Not running overlay
+export default class OverlayComponent extends Component {
 
-function NotRunning(pushed) {
+    constructor(props) {
+        super(props);
+        this.state = { isRunning: false, second: 0 };
+        this.stopRun = this.stopRun.bind(this);
+        this.displayRun = this.displayRun.bind(this);
+    }
+
+    Running(pushed) {
+        return (
+            <View style={runningStyle.overlay} >
+                <View style={runningStyle.up}>
+                    <Text>Nb KM</Text>
+                    {/* {Timer()} */}
+                </View>
+                <View style={runningStyle.down}>
+                    <TouchableNativeFeedback onPress={pushed}>
+                        <View style={[runningStyle.button_pause, runningStyle.button]}>
+                            <Icon name="pause" size={26} color="white" />
+                        </View>
+                    </TouchableNativeFeedback>
+
+                    <View style={runningStyle.middle} ></View>
+
+                    <TouchableNativeFeedback onPress={pushed}>
+                        <View style={[runningStyle.button_stop, runningStyle.button]}>
+                            <Icon name="square" size={26} color="white" />
+                        </View>
+                    </TouchableNativeFeedback>
+                </View>
+
+            </View>
+        );
+    }
+
+    NotRunning(pushed) {
         return (
             <View style={notRunningStyle.overlay} >
                 <TouchableNativeFeedback style={notRunningStyle.button} onPress={pushed}>
@@ -14,6 +48,25 @@ function NotRunning(pushed) {
                 </TouchableNativeFeedback>
             </View>
         );
+    }
+
+    stopRun() {
+        this.setState({ isRunning: false, second: 0 });
+        console.log("isRunning set to false");
+    };
+
+    displayRun() {
+        this.setState({ isRunning: true });
+        console.log("isRunning set to true");
+    };
+
+    render() {
+        if (this.state.isRunning) {
+            return (this.Running(this.stopRun))
+        } else {
+            return (this.NotRunning(this.displayRun))
+        }
+    }
 }
 
 const notRunningStyle = StyleSheet.create({
@@ -49,32 +102,6 @@ const notRunningStyle = StyleSheet.create({
     }
 })
 
-function Running(pushed) {
-    return (
-        <View style={runningStyle.overlay} >
-            <View style={runningStyle.up}>
-                <Text>Nb KM</Text>
-                <Text>Timer</Text>
-            </View>
-            <View style={runningStyle.down}>
-                <TouchableNativeFeedback onPress={pushed}>
-                    <View style={[runningStyle.button_pause, runningStyle.button]}>
-                        <Icon name="pause" size={26} color="white" />
-                    </View>
-                </TouchableNativeFeedback>
-
-                <View style={runningStyle.middle} ></View>
-
-                <TouchableNativeFeedback onPress={pushed}>
-                    <View style={[runningStyle.button_stop, runningStyle.button]}>
-                        <Icon name="square" size={26} color="white" />
-                    </View>
-                </TouchableNativeFeedback>
-            </View>
-
-        </View>
-    );
-}
 const runningStyle = StyleSheet.create({
     overlay: {
         position: 'absolute',
@@ -129,33 +156,5 @@ const runningStyle = StyleSheet.create({
         height: 70,
     }
 })
-
-export default class OverlayComponent extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = { isRunning: false };
-        this.stopRun = this.stopRun.bind(this)
-        this.displayRun = this.displayRun.bind(this)
-    }
-
-    stopRun() {
-        this.setState({ isRunning: false });
-        console.log("isRunning set to false");
-    };
-
-    displayRun() {
-        this.setState({ isRunning: true });
-        console.log("isRunning set to true");
-    };
-
-    render() {
-        if (this.state.isRunning) {
-            return (Running(this.stopRun))
-        } else {
-            return (NotRunning(this.displayRun))
-        }
-    }
-}
 
 
