@@ -10,6 +10,7 @@ import MainTabNavigator from "./MainTabNavigator";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import Loading from "../screens/Loading";
+import ProfilScreen from "../screens/ProfilScreen";
 
 const LoginNavigator = createStackNavigator({
   Login: { screen: LoginScreen },
@@ -22,7 +23,8 @@ export default createAppContainer(
       Loading,
       RegisterScreen,
       LoginScreen,
-      MainTabNavigator
+      MainTabNavigator,
+      ProfilScreen
     },
     { initialRouteName: "Loading" }
   )

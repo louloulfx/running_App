@@ -1,9 +1,28 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button, TextInput } from "react-native";
-
+import dbh from "../db";
+import firebase from "firebase";
 import HelloComponent from "../components/model/HelloComponent";
 
+const users = dbh.collection("users");
+
 class ProfilComponent extends Component {
+  deconnexion() {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => this.props.navigation.navigate("LoginScreen"))
+      .catch(error => this.setState({ errorMessage: error.message }));
+  }
+
+  update() {
+    firebase.auth();
+  }
+
+  componentDidMount() {
+    users.get().then();
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +53,7 @@ class ProfilComponent extends Component {
           <View>
             <Text style={styles.title}>{this.state.titleEmail}</Text>
             <View style={styles.container}>
-              <TextInput style={styles.text}>
+              <TextInput style={styles.text} editable={false}>
                 {this.props.currentUser}
               </TextInput>
             </View>
@@ -53,10 +72,18 @@ class ProfilComponent extends Component {
           </View>
           <View>
             <View>
-              <Button title="MODIFIER" color="#8bc34a"></Button>
+              <Button
+                title="MODIFIER"
+                color="#8bc34a"
+                onPress={this.update()}
+              ></Button>
             </View>
             <View style={styles.button}>
-              <Button title="DECONNEXION" color="#ff5722"></Button>
+              <Button
+                title="DECONNEXION"
+                color="#ff5722"
+                // onPress={this.deconnexion()}
+              ></Button>
             </View>
           </View>
         </View>
