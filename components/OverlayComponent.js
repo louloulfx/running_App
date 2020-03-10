@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Platform, Text, View, StyleSheet, Dimensions, TouchableNativeFeedback } from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Stopwatch } from 'react-native-stopwatch-timer';
 
 export default class OverlayComponent extends Component {
 
@@ -9,18 +10,29 @@ export default class OverlayComponent extends Component {
         this.state = {
             isRunning: false,
             isPaused: false,
-            time: 0
+            stopwatchStart: false,
+            totalDuration: 90000,
+            stopwatchReset: false,
         };
         this.stopRun = this.stopRun.bind(this);
         this.launchRun = this.launchRun.bind(this);
-        this.startTimer = this.startTimer.bind(this);
         this.pauseRun = this.pauseRun.bind(this);
+        this.toggleStopwatch = this.toggleStopwatch.bind(this);
+        this.resetStopwatch = this.resetStopwatch.bind(this);
 
     }
 
-    // getFormattedTime(time) {
-    //     this.currentTime = time;
-    // };
+    toggleStopwatch() {
+        this.setState({ stopwatchStart: !this.state.stopwatchStart, stopwatchReset: false });
+    }
+
+    resetStopwatch() {
+        this.setState({ stopwatchStart: false, stopwatchReset: true });
+    }
+
+    getFormattedTime(time) {
+        this.currentTime = time;
+    };
 
     Running(pause, stop) {
         this.state.isPaused ? icon = "play" : icon = "pause";
@@ -28,9 +40,9 @@ export default class OverlayComponent extends Component {
             <View style={runningStyle.overlay} >
                 <View style={runningStyle.up}>
                     <Text>Nb KM</Text>
-                    <Text style={runningStyle.chrono} >
-                        {this.msToTime(this.state.time)}
-                    </Text>
+                    <Stopwatch laps msecs start={this.state.stopwatchStart}
+                        reset={this.state.stopwatchReset}
+                        getTime={this.getFormattedTime} />
                 </View>
                 <View style={runningStyle.down}>
                     <TouchableNativeFeedback onPress={pause}>
@@ -53,17 +65,6 @@ export default class OverlayComponent extends Component {
         );
     }
 
-    startTimer() {
-        this.timer = setInterval(() => this.setState({
-            time: this.state.time + 1000
-        }), 1000);
-    }
-
-    msToTime(s) {
-        // Pad to 2 or 3 digits, default is 2
-        var pad = (n, z = 2) => ('00' + n).slice(-z);
-        return pad(s / 3.6e6 | 0) + ':' + pad((s % 3.6e6) / 6e4 | 0) + ':' + pad((s % 6e4) / 1000 | 0);
-    }
 
     NotRunning(pushed) {
         return (
@@ -78,25 +79,16 @@ export default class OverlayComponent extends Component {
     }
 
     stopRun() {
-        this.setState({ isRunning: false, time: 0 });
+        this.setState({ isRunning: false, isPaused: false, stopwatchStart: false, stopwatchReset: true });
         console.log("isRunning set to false");
     };
 
-    pauseRun() {
-        if (this.state.isPaused) {
-            this.setState({ isPaused: false });
-            this.startTimer();
-        } else {
-            this.setState({ isPaused: true });
-            clearInterval(this.timer);
-            console.log("pause")
-        }
-
+    pauseRun(){
+        this.setState({isPaused:!this.state.isPaused, stopwatchStart: !this.state.stopwatchStart, stopwatchReset: false})
     }
 
     launchRun() {
-        this.setState({ isRunning: true });
-        this.startTimer();
+        this.setState({ isRunning: true, stopwatchStart: !this.state.stopwatchStart, stopwatchReset: false });
         console.log("isRunning set to true");
     };
 
