@@ -93,11 +93,12 @@ export default class OverlayComponent extends Component {
     };
 
     render() {
-        if (this.state.isRunning) {
-            return (this.Running(this.pauseRun, this.stopRun))
-        } else {
-            return (this.NotRunning(this.launchRun))
-        }
+        return this.state.isRunning ? this.Running(this.pauseRun, this.stopRun) : this.NotRunning(this.launchRun)
+        // if (this.state.isRunning) {
+        //     return (this.Running(this.pauseRun, this.stopRun))
+        // } else {
+        //     return (this.NotRunning(this.launchRun))
+        // }
     }
 }
 
