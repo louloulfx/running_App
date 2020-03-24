@@ -86,7 +86,7 @@ export default class RegisterScreen extends Component {
             value={this.state.password}
             style={styles.input}
           />
-          <Button title="Sign Up" onPress={this.handleSignUp} />
+          <Button title="Sign Up" color="#8bc34a" onPress={this.handleSignUp} />
         </View>
         <View style={styles.container}>
           <Text>Tu as déjà un compte ?</Text>
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   input: {
+    borderRadius: 5,
     borderWidth: 1,
     borderColor: "#c8c8c8",
     width: "100%",
