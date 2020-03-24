@@ -47,7 +47,7 @@ export default class LoginScreen extends React.Component {
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
           />
-          <Button title="Login" onPress={this.handleLogin} />
+          <Button title="Login" color="#8bc34a" onPress={this.handleLogin} />
         </View>
         <View style={styles.container}>
           <Text>Pas encore de compte ?</Text>
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   input: {
+    borderRadius: 5,
     borderWidth: 1,
     marginTop: 15,
     borderColor: "#c8c8c8",
