@@ -5,7 +5,7 @@ import firebase from "firebase";
 class HelloComponent extends Component {
   state = {
     nom: "",
-    bonjour: "Bonjour, "
+    bonjour: "Bonjour, ",
   };
 
   componentDidMount() {
@@ -15,12 +15,12 @@ class HelloComponent extends Component {
       .collection("users")
       .doc(currentUser.uid)
       .get()
-      .then(doc => {
+      .then((doc) => {
         this.setState({
-          nom: doc.data().username
+          nom: doc.data().username,
         });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("Error getting document:", error);
       });
   }
@@ -42,15 +42,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    marginTop: 15
+    marginTop: 15,
   },
   nom: {
     fontWeight: "bold",
-    fontSize: 35
+    fontSize: 35,
   },
   bonjour: {
-    fontSize: 25
-  }
+    fontSize: 25,
+  },
 });
 
 export default HelloComponent;

@@ -4,18 +4,21 @@ import firebase from "firebase";
 import HelloComponent from "../components/model/HelloComponent";
 
 class ProfilComponent extends Component {
-  state = {
-    titleIdentifiant: "IDENTIFIANT",
-    titleEmail: "E-MAIL",
-    titleBirthday: "DATE DE NAISSANCE",
-    titlePassword: "MOT DE PASSE",
-    nom: "",
-    email: "",
-    birthday: "",
-    password: "",
-    editButton: "MODIFIER",
-    logoutButton: "DECONNEXION"
-  };
+  constructor() {
+    super();
+    this.state = {
+      titleIdentifiant: "IDENTIFIANT",
+      titleEmail: "E-MAIL",
+      titleBirthday: "DATE DE NAISSANCE",
+      titlePassword: "MOT DE PASSE",
+      nom: "",
+      email: "",
+      birthday: "",
+      password: "",
+      editButton: "MODIFIER",
+      logoutButton: "DECONNEXION",
+    };
+  }
 
   componentDidMount() {
     const { currentUser } = firebase.auth();
@@ -24,13 +27,13 @@ class ProfilComponent extends Component {
       .collection("users")
       .doc(currentUser.uid)
       .get()
-      .then(doc => {
+      .then((doc) => {
         this.setState({
           birthday: doc.data().birthday,
-          nom: doc.data().username
+          nom: doc.data().username,
         });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("Error getting document:", error);
       });
   }
@@ -41,8 +44,32 @@ class ProfilComponent extends Component {
       console.log(e);
     }
   };
+  updateTextInput(text, field) {
+    const state = this.state;
+    state[field] = text;
+    this.setState(state);
+  }
   update() {
-    firebase.auth();
+    const { currentUser } = firebase.auth();
+    const updateRef = firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUser.uid);
+
+    // updateRef
+    //   .set({
+    //     nom: this.state.nom,
+    //     birthday: this.state.birthday,
+    //   })
+    //   .then((docRef) => {
+    //     this.setState({
+    //       nom: "",
+    //       birthday: "",
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error adding document: ", error);
+    //   });
   }
   render() {
     return (
@@ -52,9 +79,12 @@ class ProfilComponent extends Component {
           <View>
             <Text style={styles.title}>{this.state.titleIdentifiant}</Text>
             <View style={styles.container}>
-              <TextInput style={styles.text} placeholder="Login">
-                {this.state.nom}
-              </TextInput>
+              <TextInput
+                style={styles.text}
+                placeholder="Login"
+                value={this.state.nom}
+                onChangeText={(text) => this.updateTextInput(text, "nom")}
+              />
             </View>
           </View>
           <View>
@@ -64,17 +94,22 @@ class ProfilComponent extends Component {
                 style={styles.text}
                 placeholder="Email"
                 editable={false}
-              >
-                {this.props.currentUser}
-              </TextInput>
+                value={this.props.currentUser}
+                onChangeText={(text) =>
+                  this.updateTextInput(text, "currentUser")
+                }
+              />
             </View>
           </View>
           <View>
             <Text style={styles.title}>{this.state.titleBirthday}</Text>
             <View style={styles.container}>
-              <TextInput style={styles.text} placeholder="Birthday">
-                {this.state.birthday}
-              </TextInput>
+              <TextInput
+                style={styles.text}
+                placeholder="Birthday"
+                value={this.state.birthday}
+                onChangeText={(text) => this.updateTextInput(text, "birthday")}
+              />
             </View>
           </View>
           <View>
@@ -117,25 +152,25 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginTop: 30,
     padding: 15,
-    paddingBottom: 45
+    paddingBottom: 45,
   },
   container: {
     borderRadius: 5,
     borderWidth: 1,
     borderColor: "#c8c8c8",
     width: 200,
-    marginTop: 10
+    marginTop: 10,
   },
   title: {
-    textAlign: "center"
+    textAlign: "center",
   },
   text: {
-    marginLeft: 10
+    marginLeft: 10,
   },
   button: {
     width: 200,
-    marginTop: 15
-  }
+    marginTop: 15,
+  },
 });
 
 export default ProfilComponent;
