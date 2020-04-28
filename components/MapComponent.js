@@ -13,22 +13,32 @@ import * as Permissions from "expo-permissions";
 import MapView, { Marker } from "react-native-maps";
 
 import OverlayComponent from '../components/OverlayComponent';
+import FinishedRun from '../components/FinishedRun'
 
 export default class LocationComponent extends Component {
+  constructor() {
+    super();
+    this.finishRun = this.finishRun.bind(this);
+    this.goBack = this.goBack.bind(this);
+    this.viewMap = this.viewMap.bind(this);
+  }
+
   state = {
-    location: null,
-    errorMessage: null
+    location: {
+      coords: {
+        latitude: 40.779897,
+        longitude: -73.968565
+      }
+    },
+    errorMessage: null,
+    finishedRun: false
   };
 
   componentWillMount() {
     if (Platform.OS === "android" && !Constants.isDevice) {
-      this.setState({
-        errorMessage:
-          "Oops, this will not work on Sketch in an Android emulator. Try it on your device!"
-      });
-    } else {
-      this._getLocationAsync();
+      console.log("Working in emulator.")
     }
+    this._getLocationAsync();
   }
 
   _getLocationAsync = async () => {
@@ -43,7 +53,16 @@ export default class LocationComponent extends Component {
     this.setState({ location });
   };
 
-  render() {
+
+  finishRun() {
+    this.setState({ finishedRun: true });
+  };
+
+  goBack() {
+    this.setState({ finishedRun: false });
+  }
+
+  viewMap(finishFunc) {
     let lat = 0;
     let long = 0;
     if (this.state.errorMessage) {
@@ -54,15 +73,14 @@ export default class LocationComponent extends Component {
     }
 
     return (
-
-      <View style={styles.container}>
-        <OverlayComponent />
+      <View>
+        <OverlayComponent finish={finishFunc} />
         <MapView
           region={{
             latitude: lat,
             longitude: long,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
+            latitudeDelta: 0.001,
+            longitudeDelta: 0.001
           }}
           followsUserLocation={true}
           showsUserLocation={true}
@@ -76,6 +94,17 @@ export default class LocationComponent extends Component {
             </View>
           </Marker>
         </MapView>
+      </View>
+
+    )
+  }
+
+
+  render() {
+
+    return (
+      <View style={styles.container}>
+        {this.state.finishedRun ? <FinishedRun back={this.goBack} /> : this.viewMap(this.finishRun)}
       </View>
     );
   }
