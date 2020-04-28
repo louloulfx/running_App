@@ -80,11 +80,12 @@ export default class OverlayComponent extends Component {
 
     stopRun() {
         this.setState({ isRunning: false, isPaused: false, stopwatchStart: false, stopwatchReset: true });
+        
         console.log("isRunning set to false");
     };
 
-    pauseRun(){
-        this.setState({isPaused:!this.state.isPaused, stopwatchStart: !this.state.stopwatchStart, stopwatchReset: false})
+    pauseRun() {
+        this.setState({ isPaused: !this.state.isPaused, stopwatchStart: !this.state.stopwatchStart, stopwatchReset: false })
     }
 
     launchRun() {
@@ -93,12 +94,7 @@ export default class OverlayComponent extends Component {
     };
 
     render() {
-        return this.state.isRunning ? this.Running(this.pauseRun, this.stopRun) : this.NotRunning(this.launchRun)
-        // if (this.state.isRunning) {
-        //     return (this.Running(this.pauseRun, this.stopRun))
-        // } else {
-        //     return (this.NotRunning(this.launchRun))
-        // }
+        return this.state.isRunning ? this.Running(this.pauseRun, this.props.finish) : this.NotRunning(this.launchRun)
     }
 }
 
@@ -143,7 +139,7 @@ const runningStyle = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingTop: 40,
-        paddingBottom: 35,
+        paddingBottom: 60,
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
     },

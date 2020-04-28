@@ -6,7 +6,7 @@ import LocationComponent from "../components/MapComponent";
 export default class HomeScreen extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View>
         <LocationComponent />
       </View>
     );
@@ -16,12 +16,3 @@ export default class HomeScreen extends React.Component {
 HomeScreen.navigationOptions = {
   header: null
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
