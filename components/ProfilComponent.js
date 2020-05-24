@@ -10,11 +10,8 @@ class ProfilComponent extends Component {
       titleIdentifiant: "IDENTIFIANT",
       titleEmail: "E-MAIL",
       titleBirthday: "DATE DE NAISSANCE",
-      titlePassword: "MOT DE PASSE",
-      nom: "",
-      email: "",
+      identifiant: "",
       birthday: "",
-      password: "",
       editButton: "MODIFIER",
       logoutButton: "DECONNEXION",
     };
@@ -29,8 +26,8 @@ class ProfilComponent extends Component {
       .get()
       .then((doc) => {
         this.setState({
+          identifiant: doc.data().username,
           birthday: doc.data().birthday,
-          nom: doc.data().username,
         });
       })
       .catch(function (error) {
@@ -44,33 +41,20 @@ class ProfilComponent extends Component {
       console.log(e);
     }
   };
-  updateTextInput(text, field) {
-    const state = this.state;
-    state[field] = text;
-    this.setState(state);
-  }
-  update() {
+  update = () => {
     const { currentUser } = firebase.auth();
-    const updateRef = firebase
+    firebase
       .firestore()
       .collection("users")
-      .doc(currentUser.uid);
-
-    // updateRef
-    //   .set({
-    //     nom: this.state.nom,
-    //     birthday: this.state.birthday,
-    //   })
-    //   .then((docRef) => {
-    //     this.setState({
-    //       nom: "",
-    //       birthday: "",
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error adding document: ", error);
-    //   });
-  }
+      .doc(currentUser.uid)
+      .update({
+        username: this.state.identifiant,
+        birthday: this.state.birthday,
+      })
+      .catch(function (error) {
+        console.log("Error getting document:", error);
+      });
+  };
   render() {
     return (
       <View style={{ width: "100%", height: "100%" }}>
@@ -82,8 +66,8 @@ class ProfilComponent extends Component {
               <TextInput
                 style={styles.text}
                 placeholder="Login"
-                value={this.state.nom}
-                onChangeText={(text) => this.updateTextInput(text, "nom")}
+                onChangeText={(identifiant) => this.setState({ identifiant })}
+                value={this.state.identifiant}
               />
             </View>
           </View>
@@ -95,9 +79,6 @@ class ProfilComponent extends Component {
                 placeholder="Email"
                 editable={false}
                 value={this.props.currentUser}
-                onChangeText={(text) =>
-                  this.updateTextInput(text, "currentUser")
-                }
               />
             </View>
           </View>
@@ -107,22 +88,22 @@ class ProfilComponent extends Component {
               <TextInput
                 style={styles.text}
                 placeholder="Birthday"
+                onChangeText={(birthday) => this.setState({ birthday })}
                 value={this.state.birthday}
-                onChangeText={(text) => this.updateTextInput(text, "birthday")}
               />
             </View>
           </View>
           <View>
             <View style={styles.button}>
               <Button
-                title="MODIFIER"
+                title={this.state.editButton}
                 color="#8bc34a"
-                onPress={this.update()}
+                onPress={this.update}
               ></Button>
             </View>
             <View style={styles.button}>
               <Button
-                title="DECONNEXION"
+                title={this.state.logoutButton}
                 color="#ff5722"
                 onPress={this.signOutUser}
               ></Button>
