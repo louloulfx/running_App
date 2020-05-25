@@ -86,13 +86,13 @@ export default class LocationComponent extends Component {
           showsUserLocation={true}
           style={styles.mapStyle}
         >
-          <Marker coordinate={{ latitude: lat, longitude: long }}>
+          {/* <Marker coordinate={{ latitude: lat, longitude: long }}>
             <View style={{ backgroundColor: "red", padding: 10 }}>
               <Text>
                 {lat},{long}
               </Text>
             </View>
-          </Marker>
+          </Marker> */}
         </MapView>
       </View>
 
